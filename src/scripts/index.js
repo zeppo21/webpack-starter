@@ -1,7 +1,7 @@
 import "../styles/index.scss";
 
 import { Car } from "./models/car.js";
-import { sayGoodnightDick } from "./dick.js";
+import { sayGoodnightDick } from "./goodnight.js";
 
 console.log("Hello World!!!");
 
