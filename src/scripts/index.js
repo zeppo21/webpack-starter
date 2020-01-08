@@ -1,70 +1,41 @@
 import "../styles/index.scss";
+import $ from "jquery";
 
-import { Car } from "./models/car";
-import { sayGoodnightDick } from "./goodnight.js";
-import { test_jquery_get } from "./jq";
-import { test_jquery_post } from "./jq";
+let form = document.getElementById("user-form");
 
-console.log("Hello World!!!");
+form.addEventListener("submit", event => {
+  let user = form.elements["user"];
+  let avatarFile = form.elements["avatar-file"];
 
-let car = new Car();
-console.log(car.start());
+  let posting = {
+    user: user.value,
+    avatarFile: avatarFile.value
+  };
 
-sayGoodnightDick();
+  let promise = $.post(
+    "http://5e150ca0bce1d10014baf007.mockapi.io/api/v1/users",
+    posting
+  );
 
-// DOM Pluralsight module
-console.log(window.innerWidth);
+  promise.then(
+    data => console.log("success: ", data),
+    error => console.log("error: ", error)
+  );
+  event.preventDefault();
+});
 
-// Timers and stuff..
+/*  BASIC CHECK */
 /*
-let timeoutId = setTimeout(function() {
-  console.log("1 second passed");
-}, 1000);
-console.log(timeoutId);
+form.addEventListener("submit", event => {
+  let user = form.elements["user"];
+  let userError = document.getElementById("user-error");
 
-let intervalId = setInterval(function() {
-  console.log("1 second passed");
-}, 1000);
-clearInterval(intervalId);
+  if (user.value.length < 4) {
+    userError.textContent = "Invalid Entry";
+    userError.style.color = "red";
+    user.style.borderColor = "red";
+    user.focus();
+    event.preventDefault();
+  }
+});
 */
-
-console.log(location.href);
-console.log(window.location.href);
-console.log(document.location.href);
-
-let el = document.getElementById("first");
-//console.log(el);
-
-let els = document.getElementsByClassName("p1");
-//console.log(els);
-
-let tags = document.getElementsByTagName("p");
-//console.log(tags);
-
-// Modify DOM Elements
-let mod_el = document.getElementById("first");
-mod_el.textContent = "A new content...";
-
-// ERRORS`
-
-try {
-  let car = newCar;
-} catch (error) {
-  console.log("error", error);
-} finally {
-  console.log("finally block always executes!");
-}
-console.log("continuing...");
-
-try {
-  console.log("entering try");
-  throw new Error("my custom error");
-} catch (error) {
-  console.log("error: ", error);
-} finally {
-  console.log("in finally");
-}
-
-// JQUERY
-test_jquery_get();
-test_jquery_post();
